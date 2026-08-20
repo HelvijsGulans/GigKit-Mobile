@@ -77,3 +77,10 @@ GigKit contains an experimental Firebase-based cloud layer intended for future f
 ## Project Status
 
 GigKit is currently available on Android and is actively maintained. iOS support is planned for a future release.
+
+## License
+
+Copyright © 2026 GigKit contributors. All rights reserved.
+
+This project is publicly available for portfolio and evaluation purposes.
+See [LICENSE](LICENSE) for usage restrictions.
