@@ -23,10 +23,12 @@ GigKit is a mobile application for musicians to manage gigs, event details, stag
 ## App Preview
 
 <p align="left">
-  <img src="screenshots/calendar.png" width="220">
-  <img src="screenshots/presets.png" width="220">
-  <img src="screenshots/edit_export.png" width="220">
-  <img src="screenshots/export.png" width="220">
+  <img src="screenshots/calendar.png" width="260">
+  <img src="screenshots/presets.png" width="260">
+</p>
+<p align="left">
+   <img src="screenshots/edit_export.png" width="260">
+   <img src="screenshots/export.png" width="260">
 </p>
 
 ## Tech Stack
