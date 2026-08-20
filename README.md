@@ -23,10 +23,10 @@ GigKit is a mobile application for musicians to manage gigs, event details, stag
 ## App Preview
 
 <p align="left">
-  <img src="screenshots/calendar.png" width="260">
-  <img src="screenshots/presets.png" width="260">
-  <img src="screenshots/edit_export.png" width="260">
-  <img src="screenshots/export.png" width="260">
+  <img src="screenshots/calendar.png" width="220">
+  <img src="screenshots/presets.png" width="220">
+  <img src="screenshots/edit_export.png" width="220">
+  <img src="screenshots/export.png" width="220">
 </p>
 
 ## Tech Stack
@@ -55,9 +55,18 @@ My primary contributions included:
 
 ## Running Locally
 
+### Prerequisites
+
+- Node.js and npm
+- Expo Go installed on a mobile device
+
+### Setup
+
 1. Clone the repository
-2. npm install
-3. npx expo start
+2. Run `npm install`
+3. Run `npx expo start`
+4. Press `s` to switch to Expo Go
+5. Scan the QR code with Expo Go to launch the app
 
 ## Cloud sync
 
@@ -65,6 +74,4 @@ GigKit contains an experimental Firebase-based cloud layer intended for future f
 
 ## Project Status
 
-GigKit is currently available on Android and is designed as a local-first application for managing gig-related information on-device.
-
-The Android version is actively developed, with iOS support planned for a future release. The codebase also contains an experimental cloud synchronization layer intended to support future multi-device and collaborative features.
+GigKit is currently available on Android and is actively maintained. iOS support is planned for a future release.

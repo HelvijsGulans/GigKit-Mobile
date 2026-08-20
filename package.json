@@ -1,7 +1,7 @@
 {
   "name": "gigkit",
   "main": "expo-router/entry",
-  "version": "1.0.0",
+  "version": "1.4.0",
   "scripts": {
     "reset-project": "node ./scripts/reset-project.js",
     "generate-base64-assets": "node ./scripts/generateBase64Assets.js",

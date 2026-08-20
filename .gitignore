@@ -45,6 +45,6 @@ credentials.json
 
 app-example
 
-Ignore sensitive files
+# Ignore sensitive files
 
 .env
