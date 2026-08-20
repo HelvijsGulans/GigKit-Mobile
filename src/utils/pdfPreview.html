@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Stage Plan Live Preview</title>
+
+    <style>
+      body {
+        font-family: "Times New Roman", serif;
+        margin: 0;
+        color: #000;
+        background: #eee;
+      }
+      .page {
+        width: 595pt;
+        height: 842pt;
+        background: white;
+        margin: 20px auto;
+        box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.2);
+        page-break-after: always;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .event-details-content {
+        padding: 20pt;
+      }
+      .header-first-page {
+        position: absolute;
+        top: 20pt;
+        right: 20pt;
+        font-size: 10pt;
+        font-weight: bold;
+        color: #333;
+      }
+
+      .stage-wrapper {
+        position: relative;
+        padding: 20pt;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .stage-canvas {
+        position: relative;
+        background: white;
+      }
+
+      .stage-canvas div {
+        position: absolute;
+      }
+      h1,
+      h2 {
+        text-align: center;
+        text-transform: uppercase;
+        margin: 6pt 0;
+      }
+      p,
+      ul {
+        margin: 0 30px 12px;
+      }
+      li {
+        margin-bottom: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script>
+      const events = [
+        {
+          eventName: "Live Jazz Night",
+          venue: "Blue Note Club",
+          date: new Date(),
+          requirements: [
+            "PA system",
+            ["3 vocal mics", "2 DI boxes"],
+            { text: "Backline", children: ["Drum kit", "Bass amp"] },
+          ],
+          stageLayout: { width: 1000, height: 600 },
+          stageIcons: [
+            {
+              id: "drums",
+              x: 0.4,
+              y: 0.3,
+              width: 0.15,
+              height: 0.15,
+              source: "https://i.imgur.com/yp4Yq0r.png",
+            },
+            {
+              id: "amp",
+              x: 0.1,
+              y: 0.6,
+              width: 0.1,
+              height: 0.1,
+              source: "https://i.imgur.com/r6I6S1H.png",
+            },
+          ],
+        },
+      ];
+
+      /* -------------------------------------------------------
+   🚀 RENDER LOGIC (Matches your PDF generator)
+------------------------------------------------------- */
+      const PDF_WIDTH = 595;
+      const PDF_HEIGHT = 842;
+      const MARGIN = 20;
+      const AVAILABLE_W = PDF_WIDTH - MARGIN * 2;
+      const AVAILABLE_H = PDF_HEIGHT - MARGIN * 2;
+
+      function renderRequirements(items) {
+        if (!items) return "";
+        if (typeof items === "string") return `<li>${items}</li>`;
+        if (Array.isArray(items))
+          return `<ul>${items.map(renderRequirements).join("")}</ul>`;
+        return `<li>${items.text || items.label}${
+          items.children ? renderRequirements(items.children) : ""
+        }</li>`;
+      }
+
+      function renderStage(event) {
+        const originalW = event.stageLayout?.width || 600;
+        const originalH = event.stageLayout?.height || 600;
+        const ratio = originalW / originalH;
+
+        let w = AVAILABLE_W,
+          h = w / ratio;
+        if (h > AVAILABLE_H) {
+          h = AVAILABLE_H;
+          w = h * ratio;
+        }
+
+        const icons = (event.stageIcons || [])
+          .map((icon) => {
+            const iw = Math.max(icon.width * w, 20);
+            const ih = Math.max(icon.height * h, 20);
+            const x = icon.x * w;
+            const y = icon.y * h;
+            return `<div style="left:${x}px;top:${y}px;width:${iw}px;height:${ih}px;">
+      <img src="${icon.source}" style="width:100%;height:100%;">
+    </div>`;
+          })
+          .join("");
+
+        return `<div class="page stage-wrapper">
+      <h1>Stage Plan</h1>
+      <div class="stage-canvas" style="width:${w}px;height:${h}px;">
+        ${icons}
+      </div>
+    </div>`;
+      }
+
+      document.getElementById("root").innerHTML = events
+        .map(
+          (e) => `
+  <div class="page event-details-content">
+    <div class="header-first-page">GigKit Preview</div>
+    <h1>${e.eventName}</h1>
+    <h2>Venue</h2><p>${e.venue}</p>
+    <h2>Date</h2><p>${new Date(e.date).toDateString()}</p>
+    <h2>Requirements</h2>
+    ${renderRequirements(e.requirements)}
+  </div>
+  ${renderStage(e)}
+`
+        )
+        .join("");
+    </script>
+  </body>
+</html>
